@@ -1,3 +1,17 @@
+Version 1.4.10
+- Created button implementation for 100% Counts Glitched Meds
+	-- Renamed 100% Counts Glitched sheet to 100% Counts
+- Removed mMenu module
+	-- All code from mMenu moved to s02 (Menu) Excel Object module
+	-- Changed subs in said module to Private Functions
+	-- Cleaned Select Cases in said module
+- Switched order of appearance for Shotgun and Auto Pistols in Ammo sheets
+	-- This gives consistency with in-game appearance of said weapons
+- Updated Information sheet to reflect changes to licensure and distribution
+	-- Added Github link
+	-- Added Documentation details
+	-- Switched to Ubuntu Light font
+-------------------------------------------------------------------------------
 Version 1.4.9
 - Fixed wording in Information sheet
 - Better password for Information sheet

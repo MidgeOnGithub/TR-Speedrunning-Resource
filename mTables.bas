@@ -1,28 +1,45 @@
 Attribute VB_Name = "mTables"
-'Subroutine to determine whether or not to add inaccessible WotMD shark
+Option Explicit
+Sub SharkKillToggle() 'Sub determines whether or not to add inaccessible WotMD shark.
 
-Sub SharkKillToggle()
+'Declare variables.
+Dim SharkRge As Range
+Set SharkRge = ThisWorkbook.ActiveSheet.Range("C11") 'C11 is the WotMD Kills cell.
 
-'Declare variables
-Dim SharkKill As Boolean, SharkRng As Range
-
-'C11 is the WotMD Kills cell
-Set SharkRng = ThisWorkbook.ActiveSheet.Range("C11")
-
-SharkKill = Application.InputBox(Prompt:="Are you going to kill the optional shark? Leaderboard rules do not require it, so unless you want to do extra work, leave the default option. Switch to something Excel interprets as 'True' if you wish to kill the shark.", _
-            Title:="Shark Kill Prompt", Default:="False", Type:="4")
-
-'Change WotMD kills value based on user input
-If SharkKill = True Then
+'Change WotMD kills value based on user input.
+If MsgBox("Are you going to kill the optional shark?" & vbCr & "Leaderboard rules do not require it.", _
+          vbQuestion + vbYesNo, "Shark Kill Prompt") = vbYes Then
     ThisWorkbook.ActiveSheet.Unprotect
-    SharkRng.Value = 36
+    SharkRge.Value = 36
     ThisWorkbook.ActiveSheet.Protect
-Else
+    
+Else 'User selected vbNo.
     ThisWorkbook.ActiveSheet.Unprotect
-    SharkRng.Value = 35
+    SharkRge.Value = 35
     ThisWorkbook.ActiveSheet.Protect
+    
 End If
 
 End Sub
+Sub MedPickupToggle()
 
+Dim MedRge As Range
+Set MedRge = ThisWorkbook.ActiveSheet.Range("D18") 'D18 is the Temple of Xian Pickups cell.
+
+'Change Xian pickups value based on user input.
+
+If MsgBox("Are you going to pickup the previously unobtainable large med?", _
+          vbQuestion + vbYesNo, "Med Pickup Prompt") = vbYes Then
+    ThisWorkbook.ActiveSheet.Unprotect
+    MedRge.Value = 40
+    ThisWorkbook.ActiveSheet.Protect
+    
+Else 'User selected vbNo.
+    ThisWorkbook.ActiveSheet.Unprotect
+    MedRge.Value = 39
+    ThisWorkbook.ActiveSheet.Protect
+    
+End If
+
+End Sub
 
