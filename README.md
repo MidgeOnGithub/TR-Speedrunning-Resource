@@ -14,13 +14,13 @@ Much of the basics of operating the file are listed in the Information worksheet
 
 Thus, this workbook is useful *outside* of runs to help a runner plan or optimize their routes. There are sheets that accompany all major run types: Any%, Secrets%, 100%/Max%, and all Glitchless variations. Within these sheets are also version toggles to account for any difference in enemy, item, or weapon behavior due to using a different version of the game (most notably, some Japanese versions of the classic TR games are made easier by weapon damage output modifications for Japanese-localized game versions).
 
-#####Unimplemented Features Needed Before Official Release
+##### Unimplemented Features Needed Before Official Release
 
 * Prompted, automatic ammo calculations
 	* The player will be prompted to choose what weapons they are choosing to kill which enemies. These values will be stored in archive sheets within the workbook, thus retaining a history of the player's choices that can be reloaded upon program close and re-opening.
 * Flares tracking and/or optimizing sheets
 
-#####Future Features to be Added After Official Release
+##### Future Features to be Added After Official Release
 
 * Support for games Tomb Raider I and Tomb Raider III
 
