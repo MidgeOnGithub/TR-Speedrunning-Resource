@@ -1,3 +1,4 @@
+<<<<<<< HEAD:mMainFunctions.bas
 <<<<<<< HEAD
 Attribute VB_Name = "mMainFunctions"
 Option Explicit
@@ -125,6 +126,11 @@ Function FindItemIndex(Coll As Collection, Key As String) As Integer
     End If
 End Function
 
+=======
+Attribute VB_Name = "mRunInfo"
+Option Explicit
+
+>>>>>>> 5d8ca0e... MainFunctions fix + rename, UserInputs work:mRunInfo.bas
 Function FindSelectionData(Data As String, Rge As Range, TblKill As ListObject) As Integer
     'Works because each Ammo sheet's user input areas are actually Objects.
     'Uses Rge's row/column value relative to the sheet, subtracting TblKill's first row/column value
@@ -143,6 +149,7 @@ Function FindSelectionData(Data As String, Rge As Range, TblKill As ListObject) 
     FindSelectionData = RgeProperty - TblStart + 1  'Collections are indexed from 1.
 End Function
 
+<<<<<<< HEAD:mMainFunctions.bas
 Function FindLevelWeapons(Rge As Range, NewGamePlus As String, TblKill As ListObject)
     LevelWeapons = LevelName  'Distinguishes between the level from cell selection and the "level" being used for mWeaponsAvailableArray
     If NewGamePlus = "Yes" Then
@@ -157,6 +164,8 @@ Function FindLevelWeapons(Rge As Range, NewGamePlus As String, TblKill As ListOb
     End If
 End Function
 
+=======
+>>>>>>> 5d8ca0e... MainFunctions fix + rename, UserInputs work:mRunInfo.bas
 Function FindRunType(Sht As Worksheet) As String
     'Check current worksheet name to determine RunType.
     If InStr(Sht.Name, "Any%") = 1 Then
@@ -172,6 +181,7 @@ Function FindRunType(Sht As Worksheet) As String
     End If
 End Function
 
+<<<<<<< HEAD:mMainFunctions.bas
 Function DeclareLevelArsenal(WeaponsAvailable As Variant)
     Dim i As Integer  'Incremented for loop
     Dim Size As Integer: Size = UBound(WeaponsAvailable, 2)  'Column count from WeaponsAvailable to size DeclareLevelArsenal array.
@@ -182,6 +192,8 @@ Function DeclareLevelArsenal(WeaponsAvailable As Variant)
     Next i
 End Function
 
+=======
+>>>>>>> 5d8ca0e... MainFunctions fix + rename, UserInputs work:mRunInfo.bas
 Function IsGlitchless(Sht As Worksheet) As Boolean
     IsGlitchless = False
     'Check current worksheet name to determine RunType.
@@ -206,4 +218,7 @@ Function IsNewGamePlus(Level As Collection, LevelSelected As Integer, Sht As Wor
             End
     End Select
 End Function
+<<<<<<< HEAD:mMainFunctions.bas
 >>>>>>> d7b9fa5... mWeaponsAvailable fixed, extra spaces removed
+=======
+>>>>>>> 5d8ca0e... MainFunctions fix + rename, UserInputs work:mRunInfo.bas
