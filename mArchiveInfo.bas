@@ -1,3 +1,4 @@
+<<<<<<< HEAD:mPublicFunctions.bas
 <<<<<<< HEAD
 <<<<<<< HEAD
 Attribute VB_Name = "mPublicFunctions"
@@ -252,10 +253,56 @@ Public Function CollapseEnemyAndLevel(Rge As Range)
     Set Sht = ThisWorkbook.ActiveSheet
     
     
+=======
+Attribute VB_Name = "mArchiveInfo"
+Option Explicit
+
+'This function takes the user's cell in an Ammo sheet and translates it to the corresponding Archive sht row
+Function CollapseEnemyAndLevel(ItemRge As Range) As Long
+    
+    'Shorthand
+    Dim Sht As Worksheet
+    Set Sht = ThisWorkbook.ActiveSheet
+    
+    'Determine which ruleset is applicable ================
+    Dim strRun As String
+    strRun = FindRunType(Sht)
+    
+    Dim tblKills As ListObject
+    Set tblKills = Sht.ListObjects("tbl" + strRun + "Kills")
+    
+    'Getting column and row data to bound loop search
+    Dim ColStart As Integer: ColStart = tblKills.Range.Column
+    Dim ColEnd As Integer: ColEnd = ColStart + (tblKills.ListColumns.Count - 2)
+    'Subtract an extra 1 for TR2 because HSH is exempt from weapon selection.
+    Dim RowStart As Integer: RowStart = tblKills.Range.Row
+    Dim RowEnd As Integer: RowEnd = RowStart + (tblKills.ListRows.Count - 1)
+    
+    Dim i As Integer, j As Integer
+    Dim Count As Integer: Count = 0
+    For j = ColStart To ColEnd
+        
+        For i = RowStart To RowEnd
+            
+            If Not Sht.Cells(i, j).Value = "" Then
+                Count = Count + 1
+                
+                If i = ItemRge.Row And j = ItemRge.Column Then
+                    CollapseEnemyAndLevel = Count
+                    Exit Function
+                End If
+            
+            End If
+        Next i
+    Next j
+    
+    CollapseEnemyAndLevel = -403
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
     
 End Function
 
 'This function is meant to take an Archive sht row and translate it to the exact cell in the Ammo sht
+<<<<<<< HEAD:mPublicFunctions.bas
 Public Function ExpandEnemyAndLevel(ElementIndex As Integer, TblKills As ListObject) As Range
     'ElementIndex comes from Row in which item appears in archive table.
     'TblKills refers to ActiveSheet's (the one user is giving input in) TblKills.
@@ -266,25 +313,56 @@ Public Function ExpandEnemyAndLevel(ElementIndex As Integer, TblKills As ListObj
     'Subtract 1 for TR2 because HSH is exempt from weapon selection.
     Dim RowStart As Integer: RowStart = TblKills.Range.Row
     Dim RowEnd As Integer: RowEnd = TblKills.ListRows.Count
+=======
+Function ExpandEnemyAndLevel(ElementIndex As Integer, tblKills As ListObject) As Range
+    'ElementIndex comes from Row in which item appears in archive table.
+    'tblKills refers to ActiveSheet's (the one user is giving input in) tblKills.
+    
+    'Getting column and row data to bound loop search
+    Dim ColStart As Integer: ColStart = tblKills.Range.Column
+    Dim ColEnd As Integer: ColEnd = tblKills.ListColumns.Count - 1
+    'Subtract 1 for TR2 because HSH is exempt from weapon selection.
+    Dim RowStart As Integer: RowStart = tblKills.Range.Row
+    Dim RowEnd As Integer: RowEnd = tblKills.ListRows.Count
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
     
     Dim InputCells() As Variant
     Dim i As Integer, j As Integer
     Dim Count As Integer: Count = 0
+<<<<<<< HEAD:mPublicFunctions.bas
     For i = ColStart To i = ColEnd
         For j = RowStart To j = RowEnd
+=======
+    For i = ColStart To ColEnd
+        
+        For j = RowStart To RowEnd
+            
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
             If Not ActiveSheet.Range(i, j).Value = "" Then
                 Count = Count + 1
                 InputCells(Count) = Range(i, j).Address
             End If
+<<<<<<< HEAD:mPublicFunctions.bas
         Next
     Next
+=======
+        
+        Next j
+    Next i
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
     
     'Output describes which cell to use
     ExpandEnemyAndLevel = InputCells(ElementIndex)
 End Function
 
+<<<<<<< HEAD:mPublicFunctions.bas
 Public Function CollapseRun() As Long
     
+=======
+Function CollapseRun() As Long
+    
+    'Shorthand
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
     Dim ActSht As Worksheet
     Set ActSht = ThisWorkbook.ActiveSheet
     
@@ -297,7 +375,11 @@ Public Function CollapseRun() As Long
     ElseIf Not InStr(ActSht.Name, "100%") = 0 Then
         intRuleset = 5
     Else  'Error checking
+<<<<<<< HEAD:mPublicFunctions.bas
         CollapseRun = "ShtRenamed"
+=======
+        CollapseRun = -404
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
         Exit Function
     End If
     'Add one if glitchless since Ammo sheets are grouped together
@@ -353,7 +435,11 @@ NextIteration:
     CollapseRun = CollapseRun + 1
 End Function
 
+<<<<<<< HEAD:mPublicFunctions.bas
 Public Function ExpandRun(Output As String, ElementIndex As Integer, VersionCount As Integer) As Integer  'Returns ???
+=======
+Function ExpandRun(Output As String, ElementIndex As Integer, VersionCount As Integer) As Integer  'Returns ???
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas
     Select Case Output
         Case "Ruleset"
             ExpandRun = ElementIndex Mod VersionCount
@@ -363,4 +449,69 @@ Public Function ExpandRun(Output As String, ElementIndex As Integer, VersionCoun
             MsgBox "Code error: incorrect Parameter passed to ExpandRun. Process Terminated."
     End Select
 End Function
+<<<<<<< HEAD:mPublicFunctions.bas
 >>>>>>> ea39998... Fixed collapserun
+=======
+
+'NVIndirect stands for non-volatile INDIRECT function, it's a workaround for Excel's INDIRECT function being volatile
+'Volatility means the function will recalculate with *any* change in the workbook, which is terrible for functions relying on ActiveSheet
+'This makes the functions static, which is also a problem, but can be fixed
+Function NVIndirect(Eval As String) As Variant
+    NVIndirect = Range(Eval)
+End Function
+
+'Taken from https://stackoverflow.com/a/15366979/10466817
+'Turns a number meant for a row or column into a letter
+'Useful in combination with NVIndirect as an alternative to INDIRECT(ADDRESS) as both INDIRECT and ADDRESS are volatile
+Function ToLetter(ColNum As Long) As String
+    Dim n As Long
+    Dim c As Byte
+    Dim s As String
+
+    n = ColNum
+    
+    Do
+        c = ((n - 1) Mod 26)
+        s = Chr(c + 65) & s
+        n = (n - c) \ 26
+    Loop While n > 0
+    
+    ToLetter = s
+End Function
+
+'This is standalone from main for use by tblAmmo cells
+Function WeaponName() As String
+    
+    Dim Sht As Worksheet  'Shorthand
+    Set Sht = ThisWorkbook.ActiveSheet
+    
+    Dim Rge As Range
+    Set Rge = ActiveCell
+    
+    'Determine which ruleset is applicable ================
+    Dim strRun As String
+    strRun = FindRunType(Sht)
+    
+    Dim tblAmmo As ListObject
+    Set tblAmmo = Sht.ListObjects("tbl" & strRun & "Ammo")
+
+    Dim RowStart As Integer: RowStart = tblAmmo.Range.Row
+    Dim RowEnd As Integer: RowEnd = RowStart + (tblAmmo.ListRows.Count - 1)
+
+    Dim Weapon As Collection: Set Weapon = PopulateColl("Weapon")
+    Dim WeaponIndex As Integer
+
+    Dim Row As Long
+    For Row = RowStart To RowEnd
+            
+        If Row = Rge.Row Then
+            WeaponIndex = (Row + 1) - RowStart
+            Exit For
+        End If
+        
+    Next Row
+    
+    WeaponName = Weapon("Weapon" & WeaponIndex)
+    
+End Function
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues:mArchiveInfo.bas

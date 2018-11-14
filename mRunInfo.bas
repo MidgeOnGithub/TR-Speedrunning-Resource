@@ -130,17 +130,21 @@ End Function
 Attribute VB_Name = "mRunInfo"
 Option Explicit
 
+<<<<<<< HEAD
 >>>>>>> 5d8ca0e... MainFunctions fix + rename, UserInputs work:mRunInfo.bas
 Function FindSelectionData(Data As String, Rge As Range, TblKill As ListObject) As Integer
+=======
+Function FindSelectionData(Data As String, Rge As Range, tblKills As ListObject) As Integer
+>>>>>>> 111d2d8... Finished Main, s04 + custom function issues
     'Works because each Ammo sheet's user input areas are actually Objects.
-    'Uses Rge's row/column value relative to the sheet, subtracting TblKill's first row/column value
+    'Uses Rge's row/column value relative to the sheet, subtracting tblKills's first row/column value
     Dim RgeProperty As Integer, TblStart As Integer
     If Data = "Enemy" Then
         RgeProperty = Rge.Row
-        TblStart = TblKill.Range.Row
+        TblStart = tblKills.Range.Row
     ElseIf Data = "Level" Then
         RgeProperty = Rge.Column
-        TblStart = TblKill.Range.Column
+        TblStart = tblKills.Range.Column
     Else
         MsgBox "Code error: wrong FindSelectionData argument. Process terminated."
         End
